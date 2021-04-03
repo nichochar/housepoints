@@ -21,31 +21,9 @@ import google.cloud.logging
 import storage
 
 
-# [START upload_image_file]
-def upload_image_file(img):
-    """
-    Upload the user-uploaded file to Google Cloud Storage and retrieve its
-    publicly-accessible URL.
-    """
-    if not img:
-        return None
-
-    public_url = storage.upload_file(
-        img.read(),
-        img.filename,
-        img.content_type
-    )
-
-    current_app.logger.info(
-        'Uploaded file %s as %s.', img.filename, public_url)
-
-    return public_url
-# [END upload_image_file]
-
-
 app = Flask(__name__)
 app.config.update(
-    SECRET_KEY='secret',
+    SECRET_KEY='bananalemonadeacid',
     MAX_CONTENT_LENGTH=8 * 1024 * 1024,
     ALLOWED_EXTENSIONS=set(['png', 'jpg', 'jpeg', 'gif'])
 )
@@ -62,69 +40,35 @@ if not app.testing:
 
 
 @app.route('/')
-def list():
+def points():
+    # TODO delete me
     start_after = request.args.get('start_after', None)
-    books, last_title = firestore.next_page(start_after=start_after)
+    houses = firestore.get_houses()
 
-    return render_template('list.html', books=books, last_title=last_title)
-
-
-@app.route('/books/<book_id>')
-def view(book_id):
-    book = firestore.read(book_id)
-    return render_template('view.html', book=book)
+    houses_dict = {house['name']: house for house in houses}
+    return render_template('base.html', houses=houses_dict)
 
 
-@app.route('/books/add', methods=['GET', 'POST'])
-def add():
+@app.route('/headmaster', methods=['GET', 'POST'])
+def admin():
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
+        house = firestore.update(data)
+        log_entry = firestore.log_entry(
+            data['house'],
+            data['points'],
+            house['points'],
+            data['reason']
+        )
 
-        # If an image was uploaded, update the data to point to the new image.
-        image_url = upload_image_file(request.files.get('image'))
+        return redirect('/ledger')
 
-        if image_url:
-            data['imageUrl'] = image_url
+    return render_template('form.html')
 
-        book = firestore.create(data)
-
-        return redirect(url_for('.view', book_id=book['id']))
-
-    return render_template('form.html', action='Add', book={})
-
-
-@app.route('/books/<book_id>/edit', methods=['GET', 'POST'])
-def edit(book_id):
-    book = firestore.read(book_id)
-
-    if request.method == 'POST':
-        data = request.form.to_dict(flat=True)
-
-        # If an image was uploaded, update the data to point to the new image.
-        image_url = upload_image_file(request.files.get('image'))
-
-        if image_url:
-            data['imageUrl'] = image_url
-
-        book = firestore.update(data, book_id)
-
-        return redirect(url_for('.view', book_id=book['id']))
-
-    return render_template('form.html', action='Edit', book=book)
-
-
-@app.route('/books/<book_id>/delete')
-def delete(book_id):
-    firestore.delete(book_id)
-    return redirect(url_for('.list'))
-
-
-@app.route('/logs')
+@app.route('/ledger', methods=['GET'])
 def logs():
-    logging.info('Hey, you triggered a custom log entry. Good job!')
-    flash(Markup('''You triggered a custom log entry. You can view it in the
-        <a href="https://console.cloud.google.com/logs">Cloud Console</a>'''))
-    return redirect(url_for('.list'))
+    entries = firestore.get_entries()
+    return render_template('ledger.html', entries=entries)
 
 
 @app.route('/errors')

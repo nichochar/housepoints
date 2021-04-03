@@ -1,40 +1,75 @@
-{#
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bookshelf - Python on Google Cloud Platform</title>
+    <title>House Points</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='hourglasses.css')}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <div class="navbar-brand">Bookshelf</div>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="/">Books</a></li>
-        </ul>
-      </div>
-    </div>
     <div class="container">
-      {% block content %}{% endblock %}
-    </div>
-    {{user}}
+      <div class="header">
+        <a href="/">House Points</a>
+        <a href="/headmaster">Headmaster</a>
+        <a href="/ledger">Points Ledger</a>
+      </div>
+    {% block content %}
+      <div class="centered">
+        <h1> House Points </h1>
+      </div>
+      <div class="box">
+        <div class="gryffindor">
+          <div class="top-glass"></div>
+          <div class="top-glassp"></div>
+          <div class="glassp"></div>
+          <div class="middle"></div>
+          <div class="glass"></div>
+          <div class="band"></div>
+          <div class="band5"></div>
+          <div class="podium">Gryffindor<br>{{houses['gryffindor']['points']}}</div>
+          <div class="points"></div>
+          <div class="points2"></div>
+          <div class="points3"></div>
+          </div>
+          <div class="slytherin">
+          <div class="top-glass2"></div>
+            <div class="top-glassp2"></div>
+          <div class="glassp2"></div>
+            <div class="middle2"></div>
+            <div class="glass2"></div>
+            <div class="band2"></div>
+            <div class="band6"></div>
+            <div class="podium2">Slytherin<br>{{houses['slytherin']['points']}}</div>
+            <div class="points4"></div>
+          <div class="points5"></div>
+          </div>
+           <div class="hufflepuff">
+          <div class="top-glass3"></div>
+            <div class="top-glassp3"></div>
+             <div class="glassp3"></div>
+             <div class="middle3"></div>
+             <div class="glass3"></div>
+             <div class="band3"></div>
+             <div class="band7"></div>
+             <div class="podium3">Hufflepuff<br>{{houses['hufflepuff']['points']}}</div>
+             <div class="points6"></div>
+          <div class="points7"></div>
+          <div class="points8"></div>
+          </div>
+           <div class="ravenclaw">
+          <div class="top-glass4"></div>
+             <div class="top-glassp4"></div>
+             <div class="glassp4"></div>
+             <div class="middle4"></div>
+             <div class="glass4"></div>
+             <div class="band4"></div>
+             <div class="band8"></div>
+             <div class="podium4">Ravenclaw<br>{{houses['ravenclaw']['points']}}</div>
+             <div class="points9"></div>
+        </div>
+    {% endblock %}
   </body>
 </html>

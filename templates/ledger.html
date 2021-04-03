@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Points Ledger</h1>
+  <table style="width:100%">
+    <tr>
+      <th>House</th>
+      <th>Points Change</th>
+      <th>Total Points (after change)</th>
+      <th>Reason</th>
+      <th>Time of change</th>
+    </tr>
+    {% for entry in entries %}
+    <tr>
+      <td>{{entry['house']}}</td>
+      <td>{{entry['points_diff']}}</td>
+      <td>{{entry['house_points']}}</td>
+      <td>{{entry['reason']}}</td>
+      <td>{{entry['time']}}</td>
+    </tr>
+    {% endfor %}
+
+  </table>
+{% endblock %}
