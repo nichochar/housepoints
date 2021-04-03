@@ -1,5 +1,6 @@
 body {
   background: #64A6BD;
+  min-width: 600px;
 }
 
 .box {
@@ -18,7 +19,7 @@ h1 {
 
 .top-glass, .top-glass2, .top-glass3, .top-glass4 {
   position: absolute;
-  top: 60%;
+  top: 50%;
   width: 100px;
   height: 130px;
   background: linear-gradient(to right, #f7f7f7, #A2B9C4, #A5C4D4, #A5C4D4, #A2B9C4, #f7f7f7);
@@ -35,7 +36,7 @@ h1 {
 .top-glassp {
   left: 10.5%;
   position: absolute;
-  top: 82%;
+  top: 72%;
   width: 95px;
   height: 20px;
   background: #A50104;
@@ -45,7 +46,7 @@ h1 {
 .glassp {
   left: 14%;
   position: absolute;
-  top: 54.5%;
+  top: 44.5%;
   width: 55px;
   height: 20px;
   background: #A50104;
@@ -59,7 +60,7 @@ h1 {
 .top-glassp2 {
   left: 30.5%;
   position: absolute;
-  top: 82%;
+  top: 72%;
   width: 95px;
   height: 20px;
   background: #1A472A;
@@ -69,7 +70,7 @@ h1 {
 .glassp2 {
   left: 34%;
   position: absolute;
-  top: 54.5%;
+  top: 44.5%;
   width: 55px;
   height: 20px;
   background: #1A472A;
@@ -83,7 +84,7 @@ h1 {
 .top-glassp3 {
   left: 50.5%;
   position: absolute;
-  top: 82%;
+  top: 72%;
   width: 95px;
   height: 20px;
   background: #FFEC63;
@@ -93,7 +94,7 @@ h1 {
 .glassp3 {
   left: 54%;
   position: absolute;
-  top: 54.5%;
+  top: 44.5%;
   width: 55px;
   height: 20px;
   background: #FFEC63;
@@ -107,7 +108,7 @@ h1 {
 .top-glassp4 {
   left: 70.5%;
   position: absolute;
-  top: 82%;
+  top: 72%;
   width: 95px;
   height: 20px;
   background: #002B75;
@@ -117,7 +118,7 @@ h1 {
 .glassp4 {
   left: 74%;
   position: absolute;
-  top: 54.5%;
+  top: 44.5%;
   width: 55px;
   height: 20px;
   background: #002B75;
@@ -126,7 +127,7 @@ h1 {
 
 .middle, .middle2, .middle3, .middle4 {
   position: absolute;
-  top: 58%;
+  top: 48%;
   width: 50px;
   height: 10px;
   background: linear-gradient(to right, #f7f7f7, #A2B9C4, #A5C4D4, #A5C4D4, #A2B9C4, #f7f7f7);
@@ -155,7 +156,7 @@ h1 {
 
 .glass, .glass2, .glass3, .glass4 {
   position: absolute;
-  top: 37%;
+  top: 27%;
   width: 95px;
   height: 105px;
   background: linear-gradient(to right, #f7f7f7, #A2B9C4, #A5C4D4, #A5C4D4, #A2B9C4, #f7f7f7);
@@ -167,7 +168,7 @@ h1 {
 
 .points, .points2, .points3 {
   position: absolute;
-  top: 55%;
+  top: 45%;
   left: 16%;
   width: 10px;
   height: 10px;
@@ -193,7 +194,7 @@ h1 {
 
 .points4, .points5 {
   position: absolute;
-  top: 55%;
+  top: 45%;
   width: 10px;
   height: 10px;
   background: #1A472A;
@@ -213,7 +214,7 @@ h1 {
 
 .points6, .points7, .points8 {
   position: absolute;
-  top: 55%;
+  top: 45%;
   width: 10px;
   height: 10px;
   background: #FFEC63;
@@ -237,7 +238,7 @@ h1 {
 
 .points9 {
   position: absolute;
-  top: 55%;
+  top: 45%;
   width: 10px;
   height: 10px;
   background: #002B75;
@@ -251,13 +252,13 @@ h1 {
 
 @-webkit-keyframes points-drop {
   0% {
-    top: 55%;
+    top: 45%;
   }
   50% {
-    top: 60%;
+    top: 50%;
   }
   100% {
-    top: 85%;
+    top: 75%;
   }
 }
 .glass, .band {
@@ -278,7 +279,7 @@ h1 {
 
 .band, .band2, .band3, .band4 {
   position: absolute;
-  top: 37%;
+  top: 27%;
   width: 97px;
   height: 10px;
   background: linear-gradient(to right, #CCA951, #FFD166, #CCA951);
@@ -288,7 +289,7 @@ h1 {
 
 .band5, .band6, .band7, .band8 {
   position: absolute;
-  top: 86%;
+  top: 76%;
   width: 100px;
   height: 10px;
   background: linear-gradient(to right, #CCA951, #FFD166, #CCA951);
@@ -314,7 +315,7 @@ h1 {
 
 .podium, .podium2, .podium3, .podium4 {
   position: absolute;
-  top: 88%;
+  top: 78%;
   width: 100px;
   height: 50px;
   opacity: 0.9;
