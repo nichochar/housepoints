@@ -4,8 +4,7 @@
     <title>House Points</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='hourglasses.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style2.css')}}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
   </head>
@@ -36,57 +35,34 @@
     {% block content %}
       <div>
         <h1> House Points </h1>
+          <div id="points-container">
+            <div id="gryffindor">
+              <p>
+                <span class="emphasized">Gryffindor</span>
+                <br>
+                {{houses['gryffindor']['points']}} points
+              </p>
+            </div>
+            <div id="slytherin">
+              <p>
+                <span class="emphasized">Slytherin</span>
+                <br>{{houses['slytherin']['points']}} points
+              </p>
+            </div>
+            <div id="hufflepuff">
+              <p>
+                <span class="emphasized">Hufflepuff</span>
+                <br>{{houses['hufflepuff']['points']}} points
+              </p>
+            </div>
+            <div id="ravenclaw">
+              <p>
+                <span class="emphasized">Ravenclaw</span>
+                <br>{{houses['ravenclaw']['points']}} points
+              </p>
+            </div>
+          </div>
       </div>
-      <div class="box">
-        <div class="gryffindor">
-          <div class="top-glass"></div>
-          <div class="top-glassp"></div>
-          <div class="glassp"></div>
-          <div class="middle"></div>
-          <div class="glass"></div>
-          <div class="band"></div>
-          <div class="band5"></div>
-          <div class="podium">Gryffindor<br>{{houses['gryffindor']['points']}}</div>
-          <div class="points"></div>
-          <div class="points2"></div>
-          <div class="points3"></div>
-          </div>
-          <div class="slytherin">
-          <div class="top-glass2"></div>
-            <div class="top-glassp2"></div>
-          <div class="glassp2"></div>
-            <div class="middle2"></div>
-            <div class="glass2"></div>
-            <div class="band2"></div>
-            <div class="band6"></div>
-            <div class="podium2">Slytherin<br>{{houses['slytherin']['points']}}</div>
-            <div class="points4"></div>
-          <div class="points5"></div>
-          </div>
-           <div class="hufflepuff">
-          <div class="top-glass3"></div>
-            <div class="top-glassp3"></div>
-             <div class="glassp3"></div>
-             <div class="middle3"></div>
-             <div class="glass3"></div>
-             <div class="band3"></div>
-             <div class="band7"></div>
-             <div class="podium3">Hufflepuff<br>{{houses['hufflepuff']['points']}}</div>
-             <div class="points6"></div>
-          <div class="points7"></div>
-          <div class="points8"></div>
-          </div>
-           <div class="ravenclaw">
-          <div class="top-glass4"></div>
-             <div class="top-glassp4"></div>
-             <div class="glassp4"></div>
-             <div class="middle4"></div>
-             <div class="glass4"></div>
-             <div class="band4"></div>
-             <div class="band8"></div>
-             <div class="podium4">Ravenclaw<br>{{houses['ravenclaw']['points']}}</div>
-             <div class="points9"></div>
-        </div>
       {% endblock %}
     </div>
   </body>

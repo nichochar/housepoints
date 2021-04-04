@@ -7,11 +7,19 @@ import google.cloud.logging
 
 import firestore
 from user import User
+try:
+    from secret import SECRET_KEY
+    secret_key = SECRET_KEY
+except ImportError:
+    # If you haven't yet, you should create a local secret.py
+    # file with SECRET_KEY = "your secret key" in it. This file
+    # is ignored by .git for security purposes
+    secret_key = "temp key"
 
 
 app = Flask(__name__)
 app.config.update(
-    SECRET_KEY='bananalemonadeacid',
+    SECRET_KEY=secret_key,
     MAX_CONTENT_LENGTH=8 * 1024 * 1024,
     ALLOWED_EXTENSIONS=set(['png', 'jpg', 'jpeg', 'gif'])
 )
@@ -21,6 +29,7 @@ app.testing = False
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.init_app(app)
+
 
 # Configure logging
 if not app.testing:
@@ -32,10 +41,7 @@ if not app.testing:
 
 @app.route('/')
 def points():
-    # TODO delete me
-    start_after = request.args.get('start_after', None)
     houses = firestore.get_houses()
-
     houses_dict = {house['name']: house for house in houses}
     return render_template('base.html', houses=houses_dict)
 
@@ -57,16 +63,11 @@ def admin():
 
     return render_template('form.html')
 
+
 @app.route('/ledger', methods=['GET'])
 def logs():
     entries = firestore.get_entries()
     return render_template('ledger.html', entries=entries)
-
-@app.route('/')
-def index():
-    if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
 
 
 # User management
@@ -106,6 +107,7 @@ def load_user(user_id):
     if session.get('username') == user_id:
         return User(user_id, is_authenticated=True)
     return None
+
 
 @app.errorhandler(500)
 def server_error(e):
