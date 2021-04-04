@@ -10,12 +10,29 @@
     <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="centered">
-      <div class="header">
-        <a href="/">House Points</a>
-        <a href="/headmaster">Headmaster</a>
-        <a href="/ledger">Points Ledger</a>
+    <div class="background centered">
+
+      {% if current_user.is_authenticated %}
+      <div class="centered authenticated-msg">
+          <div class="header">
+            <a href="/">House Points</a>
+            <a href="/headmaster">Headmaster</a>
+            <a href="/ledger">Points Ledger</a>
+          </div>
+          You are authenticated as {{ current_user.username }}!
       </div>
+      {% endif %}
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="centered flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
     {% block content %}
       <div>
         <h1> House Points </h1>

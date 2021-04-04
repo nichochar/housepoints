@@ -1,24 +1,12 @@
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import logging
 
-import firestore
-from flask import current_app, flash, Flask, Markup, redirect, render_template
+from flask import current_app, flash, Flask, Markup, redirect, render_template, session
 from flask import request, url_for
+from flask_login import LoginManager, login_user, login_required
 import google.cloud.logging
-import storage
+
+import firestore
+from user import User
 
 
 app = Flask(__name__)
@@ -30,6 +18,9 @@ app.config.update(
 
 app.debug = False
 app.testing = False
+login_manager = LoginManager()
+login_manager.login_view = "login"
+login_manager.init_app(app)
 
 # Configure logging
 if not app.testing:
@@ -50,6 +41,7 @@ def points():
 
 
 @app.route('/headmaster', methods=['GET', 'POST'])
+@login_required
 def admin():
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
@@ -70,11 +62,50 @@ def logs():
     entries = firestore.get_entries()
     return render_template('ledger.html', entries=entries)
 
+@app.route('/')
+def index():
+    if 'username' in session:
+        return 'Logged in as %s' % escape(session['username'])
+    return 'You are not logged in'
 
-@app.route('/errors')
-def errors():
-    raise Exception('This is an intentional exception.')
 
+# User management
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Login and validate the user.
+        # User should be of a class that is described here:
+        # https://flask-login.readthedocs.io/en/latest/
+        user = firestore.login_and_validate_user(username, password)
+        if user is None:
+            flash('incorrect username/password')
+            return redirect(url_for('login'))
+
+        login_user(user)
+        flash('logged in successfully')
+        session['username'] = username
+
+        next = request.args.get('next')
+
+        return redirect(next or url_for('index'))
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    if session.get('username') == user_id:
+        return User(user_id, is_authenticated=True)
+    return None
 
 @app.errorhandler(500)
 def server_error(e):

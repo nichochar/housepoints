@@ -1,10 +1,18 @@
-.centered {
-    margin: 0 auto;
-    text-align: center;
+html {
+    height: 100%;
 }
 
 body {
     font-family: 'New Tegomin', serif;
+    background-image: url("background.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.centered {
+    margin: 0 auto;
+    text-align: center;
 }
 
 form {
@@ -16,11 +24,16 @@ label {
     float: left;
     width: 30%;
     text-align: left;
+    padding-top: 8px;
 }
 
 .form-right {
     float: left;
     width: 70%;
+}
+
+.form-group {
+    margin-top: 8px;
 }
 
 .form-group:after {
@@ -29,17 +42,16 @@ label {
     clear: both;
 }
 
-input[type=text], select, textarea, input[type=number] {
+input[type=text], select, textarea, input[type=number], input[type=password] {
   width: 100%;
   padding: 12px;
-  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
 }
 
 input[type=submit] {
-  background-color: #FF00FF;
+  background-color: #AE0001;
   margin-top: 30px;
   color: white;
   padding: 12px 20px;
@@ -49,5 +61,25 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #BA55D3;
+  background-color: #740001;
+}
+
+.header a {
+    font-size: 1.7em;
+    padding: 0 7px 0 7px;
+}
+
+.flashes {
+    background-color: #740001;
+    color: #FFF;
+    width: 700px;
+    list-style: none;
+    border-radius: 4px;
+
+}
+
+.authenticated-msg {
+    width: 700px;
+    padding:10px;
+    margin: 10px auto;
 }

@@ -1,5 +1,6 @@
 import time
 from google.cloud import firestore
+from user import User
 
 
 def document_to_dict(doc):
@@ -49,3 +50,20 @@ def get_entries():
     entries = query.stream()
 
     return [document_to_dict(entry) for entry in entries]
+
+def login_and_validate_user(username, password):
+    db = firestore.Client()
+    query = db.collection(u'users').where(u'username', u'==', username)
+    wanted_users = query.get()
+
+    if not wanted_users or len(wanted_users) > 1:
+        print("Could not find user")
+        return None
+
+    wanted_user = document_to_dict(wanted_users[0])
+    if wanted_user['password'] == password:
+        return User(username, True)
+
+    print("Found user but password was wrong")
+    return None
+
