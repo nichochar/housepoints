@@ -11,26 +11,20 @@ def document_to_dict(doc):
     return doc_dict
 
 
-def get_houses():
-    db = firestore.Client()
+def get_houses(db):
     query = db.collection(u'houses')
     houses = query.stream()
 
     return [document_to_dict(house) for house in houses]
 
 
-def update(data):
-    db = firestore.Client()
-    house_id = data["house"]
-    points = int(data["points"])
-    house_ref = db.collection(u'houses').document(house_id)
+def update_house(db, house, points):
+    house_ref = db.collection(u'houses').document(house)
     house_ref.update({"points": firestore.Increment(points)})
 
     return document_to_dict(house_ref.get())
 
-def log_entry(house, points_diff, house_points, reason):
-    db = firestore.Client()
-
+def log_entry(db, house, points_diff, house_points, reason):
     ledger_id = str(int(time.time()))
     data = {
         'house': house,
@@ -43,27 +37,21 @@ def log_entry(house, points_diff, house_points, reason):
 
     return data
 
-def get_entries():
-    db = firestore.Client()
-
+def get_entries(db):
     query = db.collection(u'ledger')
     entries = query.stream()
 
     return [document_to_dict(entry) for entry in entries]
 
-def login_and_validate_user(username, password):
-    db = firestore.Client()
+def login_and_validate_user(db, username, password):
     query = db.collection(u'users').where(u'username', u'==', username)
     wanted_users = query.get()
 
     if not wanted_users or len(wanted_users) > 1:
-        print("Could not find user")
         return None
 
     wanted_user = document_to_dict(wanted_users[0])
     if wanted_user['password'] == password:
         return User(username, True)
 
-    print("Found user but password was wrong")
     return None
-

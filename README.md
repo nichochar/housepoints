@@ -14,7 +14,8 @@ $ gcloud app deploy
 ```
 
 # Local development
-If you want to run the server locally, all you need is python3 and pip. Note that the local development talks to the production database right now, which is not ideal.
+If you want to run the server locally, all you need is python3 and pip.
+Please make sure to not forget `export FLASK_ENV=development` when running the development server, if not you will talk to the remote database.
 
 1. Create a python virtualenv with the right dependencies (`pip install virtualenv` if you don't have virtualenv)
 2. pip install the requirements
@@ -23,8 +24,8 @@ If you want to run the server locally, all you need is python3 and pip. Note tha
 ### Commands
 
 ```
-$ virtualenv venv                   # create a virtualenv called "venv"
-$ source venv/bin/activate          # activate it
-$ pip install -r requirements.txt   # install the requirements in it
-$ python main.py                    # run the server in it
+$ virtualenv venv                                # create a virtualenv called "venv"
+$ source venv/bin/activate                       # activate it
+$ pip install -r requirements.txt                # install the requirements in it
+$ export FLASK_ENV=development && python main.py # run the server in it
 ```

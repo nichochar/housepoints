@@ -5,7 +5,7 @@ from flask import request, url_for
 from flask_login import LoginManager, login_user, login_required
 import google.cloud.logging
 
-import firestore
+import db
 from user import User
 try:
     from secret import SECRET_KEY
@@ -24,8 +24,6 @@ app.config.update(
     ALLOWED_EXTENSIONS=set(['png', 'jpg', 'jpeg', 'gif'])
 )
 
-app.debug = False
-app.testing = False
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.init_app(app)
@@ -39,9 +37,12 @@ if not app.testing:
     client.setup_logging()
 
 
+DB = db.get_db(app.debug)
+
+
 @app.route('/')
 def points():
-    houses = firestore.get_houses()
+    houses = DB.get_houses()
     houses_dict = {house['name']: house for house in houses}
     return render_template('base.html', houses=houses_dict)
 
@@ -51,8 +52,8 @@ def points():
 def admin():
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        house = firestore.update(data)
-        log_entry = firestore.log_entry(
+        house = DB.update_house(data["house"], int(data["points"]))
+        log_entry = DB.log_entry(
             data['house'],
             data['points'],
             house['points'],
@@ -66,7 +67,7 @@ def admin():
 
 @app.route('/ledger', methods=['GET'])
 def logs():
-    entries = firestore.get_entries()
+    entries = DB.get_entries()
     return render_template('ledger.html', entries=entries)
 
 
@@ -80,7 +81,7 @@ def login():
         # Login and validate the user.
         # User should be of a class that is described here:
         # https://flask-login.readthedocs.io/en/latest/
-        user = firestore.login_and_validate_user(username, password)
+        user = DB.login_and_validate_user(username, password)
         if user is None:
             flash('incorrect username/password')
             return redirect(url_for('login'))
@@ -91,7 +92,7 @@ def login():
 
         next = request.args.get('next')
 
-        return redirect(next or url_for('index'))
+        return redirect(next or url_for('points'))
     return render_template('login.html')
 
 
@@ -99,7 +100,7 @@ def login():
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('points'))
 
 
 @login_manager.user_loader
