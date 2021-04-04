@@ -3,6 +3,8 @@
 This is a small application that allows admins to add/remove points to 4 harry potter houses (Gryffindor, Slything, Ravenclaw and Hufflepuff).
 It is built using python3 + [flask](https://flask.palletsprojects.com/en/1.1.x/) (web framework) + [google appengine](https://cloud.google.com/appengine) (runtime) + [firestore](https://cloud.google.com/firestore) (database).
 
+![](static/app_screenshot.png)
+
 
 # Deployment:
 
