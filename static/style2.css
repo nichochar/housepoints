@@ -1,0 +1,135 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'New Tegomin', serif;
+    background-image: url("background.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.centered {
+    margin: 0 auto;
+    text-align: center;
+}
+
+form {
+    width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    float: left;
+    width: 30%;
+    text-align: left;
+    padding-top: 8px;
+}
+
+#points-container {
+    background-image: url("seals.jpg");
+    width: 800px;
+    height: 450px;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#gryffindor, #slytherin, #hufflepuff, #ravenclaw {
+    display: flex;
+    width: 400px;
+    height: 225px;
+    color: #FFF;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 1.3em;
+}
+
+.emphasized {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.form-right {
+    float: left;
+    width: 70%;
+}
+
+.form-group {
+    margin-top: 8px;
+}
+
+.form-group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+input[type=text], select, textarea, input[type=number], input[type=password] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #AE0001;
+  margin-top: 30px;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #740001;
+}
+
+.header a {
+    font-size: 1.7em;
+    padding: 0 7px 0 7px;
+}
+
+.flashes {
+    background-color: #740001;
+    color: #FFF;
+    width: 700px;
+    list-style: none;
+    border-radius: 4px;
+
+}
+
+.authenticated-msg {
+    width: 700px;
+    padding:10px;
+    margin: 10px auto;
+}
+
+@media screen and (max-width: 800px) {
+    .authenticated-msg, .flashes {
+        width: 100%;
+    }
+    #points-container {
+        background-image: url("seals-smaller.jpg");
+        width: 600px;
+        height: 338px;
+        margin: 20px auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #gryffindor, #slytherin, #hufflepuff, #ravenclaw {
+        display: flex;
+        width: 300px;
+        height: 169px;
+        color: #FFF;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        font-size: 1em;
+    }
+}

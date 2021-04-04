@@ -1,9 +1,3 @@
 runtime: python37
 
 default_expiration: "10m"
-
-handlers:
-# Matches requests to /images/... to files in static/images/...
-- url: /static
-  static_dir: static/
-
