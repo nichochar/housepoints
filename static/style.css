@@ -27,6 +27,31 @@ label {
     padding-top: 8px;
 }
 
+#points-container {
+    background-image: url("seals.jpg");
+    width: 800px;
+    height: 450px;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#gryffindor, #slytherin, #hufflepuff, #ravenclaw {
+    display: flex;
+    width: 400px;
+    height: 225px;
+    color: #FFF;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 1.3em;
+}
+
+.emphasized {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
 .form-right {
     float: left;
     width: 70%;
@@ -82,4 +107,29 @@ input[type=submit]:hover {
     width: 700px;
     padding:10px;
     margin: 10px auto;
+}
+
+@media screen and (max-width: 800px) {
+    .authenticated-msg, .flashes {
+        width: 100%;
+    }
+    #points-container {
+        background-image: url("seals-smaller.jpg");
+        width: 600px;
+        height: 338px;
+        margin: 20px auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #gryffindor, #slytherin, #hufflepuff, #ravenclaw {
+        display: flex;
+        width: 300px;
+        height: 169px;
+        color: #FFF;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        font-size: 1em;
+    }
 }
